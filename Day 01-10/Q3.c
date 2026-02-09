@@ -1,16 +1,31 @@
 /*Problem: Implement linear search to find key k in an array. Count and display the number of comparisons performed.*/
-n = int(input())
-a = list(map(int, input().split()))
-k = int(input())
+#include <stdio.h>
 
-count = 0
-
-for i in range(n):
-    count += 1
-    if a[i] == k:
-        print("Found at index", i)
-        print("Comparisons =", count)
-        exit()
-
-print("Not Found")
-print("Comparisons =", count)
+int main() {
+    int n;
+    scanf("%d", &n);
+    
+    int a[100];
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &a[i]);
+    }
+    
+    int k;
+    scanf("%d", &k);
+    
+    int count = 0;
+    
+    for(int i = 0; i < n; i++) {
+        count++;
+        if(a[i] == k) {
+            printf("Found at index %d\n", i);
+            printf("Comparisons = %d\n", count);
+            return 0;
+        }
+    }
+    
+    printf("Not Found\n");
+    printf("Comparisons = %d\n", count);
+    
+    return 0;
+}

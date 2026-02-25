@@ -1,4 +1,4 @@
-/*Problem: Delete First Occurrence of a Key - Implement using linked list with dynamic memory allocation.*/
+/*Problem: Count Occurrences of an Element in Linked List - Implement using linked list with dynamic memory allocation.*/
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -8,7 +8,7 @@ struct node {
 };
 
 int main() {
-    int n, key, i;
+    int n, key, i, count = 0;
     scanf("%d", &n);
 
     struct node *head = NULL, *tail = NULL;
@@ -29,28 +29,15 @@ int main() {
 
     scanf("%d", &key);
 
-    struct node *curr = head, *prev = NULL;
-
+    struct node *curr = head;
     while(curr) {
         if(curr->data == key) {
-            if(prev) {
-                prev->next = curr->next;
-            } else {
-                head = curr->next;
-            }
-            free(curr);
-            break;
+            count++;
         }
-        prev = curr;
         curr = curr->next;
     }
 
-    curr = head;
-    while(curr) {
-        printf("%d", curr->data);
-        if(curr->next) printf(" ");
-        curr = curr->next;
-    }
+    printf("%d", count);
 
     return 0;
 }

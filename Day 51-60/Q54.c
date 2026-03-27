@@ -1,0 +1,83 @@
+/*Problem Statement: Perform zigzag (spiral) level order traversal of a binary tree. Alternate levels should be traversed left-to-right and right-to-left.*/
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+
+struct Node* newNode(int val) {
+    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+    node->data = val;
+    node->left = node->right = NULL;
+    return node;
+}
+
+struct Node* build(int arr[], int n) {
+    if(n == 0 || arr[0] == -1) return NULL;
+    struct Node* root = newNode(arr[0]);
+    struct Node* q[1000];
+    int front = 0, rear = 0;
+    q[rear++] = root;
+    int i = 1;
+    while(i < n && front < rear) {
+        struct Node* curr = q[front++];
+        if(i < n && arr[i] != -1) {
+            curr->left = newNode(arr[i]);
+            q[rear++] = curr->left;
+        }
+        i++;
+        if(i < n && arr[i] != -1) {
+            curr->right = newNode(arr[i]);
+            q[rear++] = curr->right;
+        }
+        i++;
+    }
+    return root;
+}
+
+void zigzag(struct Node* root) {
+    if(root == NULL) return;
+    
+    struct Node* q[1000];
+    int front = 0, rear = 0;
+    q[rear++] = root;
+    int level = 0;
+    
+    while(front < rear) {
+        int size = rear - front;
+        int vals[1000];
+        int idx = 0;
+        
+        for(int i = 0; i < size; i++) {
+            struct Node* curr = q[front++];
+            vals[idx++] = curr->data;
+            
+            if(curr->left) q[rear++] = curr->left;
+            if(curr->right) q[rear++] = curr->right;
+        }
+        
+        if(level % 2 == 1) {
+            for(int i = idx-1; i >= 0; i--)
+                printf("%d ", vals[i]);
+        } else {
+            for(int i = 0; i < idx; i++)
+                printf("%d ", vals[i]);
+        }
+        
+        level++;
+    }
+}
+
+int main() {
+    int n;
+    scanf("%d", &n);
+    int arr[1000];
+    for(int i = 0; i < n; i++) scanf("%d", &arr[i]);
+    
+    struct Node* root = build(arr, n);
+    zigzag(root);
+    return 0;
+}

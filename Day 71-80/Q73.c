@@ -1,0 +1,24 @@
+/*Problem Statement: Given a string s consisting of lowercase English letters, find and return the first character that does not repeat in the string. If all characters repeat, return '$'.*/
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[1000];
+    scanf("%s", s);
+    
+    int count[26] = {0};
+    
+    for(int i = 0; s[i] != '\0'; i++) {
+        count[s[i] - 'a']++;
+    }
+    
+    for(int i = 0; s[i] != '\0'; i++) {
+        if(count[s[i] - 'a'] == 1) {
+            printf("%c\n", s[i]);
+            return 0;
+        }
+    }
+    
+    printf("$\n");
+    return 0;
+}

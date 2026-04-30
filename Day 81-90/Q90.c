@@ -1,0 +1,1 @@
+/*Problem Statement : Given an array of integers where each element represents the number of pages in a book, and m students, allocate books such that each student gets at least one book and the maximum number of pages assigned to a student is minimized.*/
